@@ -50,7 +50,7 @@ const getTrailChangedFields = ({
 
           if (isMultiple) {
             const valueIds = value?.map(media => media.id);
-            const newValueIds = newValue?.map(media => media.id);
+            const newValueIds = newValue?.map?.(media => media.id);
             if (!isEqual(valueIds, newValueIds)) cleanedValue = newValue;
           } else {
             cleanedValue = value?.id === newValue ? undefined : newValue;
@@ -65,7 +65,7 @@ const getTrailChangedFields = ({
         case 'component':
           if (isRepeatable) {
             cleanedValue = newValue
-              ? newValue?.map((data, index) => {
+              ? newValue?.map?.((data, index) => {
                   const subCleanedData = recursiveGetChangedFields(
                     data,
                     (value ?? [])[index],
@@ -96,7 +96,7 @@ const getTrailChangedFields = ({
 
         case 'dynamiczone':
           cleanedValue = newValue
-            ? newValue?.map((data, index) => {
+            ? newValue?.map?.((data, index) => {
                 const subCleanedData = recursiveGetChangedFields(
                   data,
                   (value ?? [])[index],
