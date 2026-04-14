@@ -23,6 +23,11 @@ module.exports = context => {
 
     const { contentTypeName, contentTypeId } = params;
 
+    // Skip custom action routes with non-numeric IDs (e.g., /api/emails/contact-us)
+    if (contentTypeId && !/^\d+$/.test(contentTypeId)) {
+      return { contentTypeName: null, contentTypeId: null, schema: null };
+    }
+
     const schema = getContentTypeSchema(contentTypeName, adminMatchCheck);
 
     if (!schema) {
